@@ -34,17 +34,25 @@ public class PetController {
 	private void loadPets() {
 		Gson gson = new Gson();
 		
+		//Find and open pets.json file inside src/main/resources
+		//Reads the info into InputStream
+		//If the file is not found, stops and throws an error
 		try {
 			InputStream petsStream = getClass().getClassLoader().getResourceAsStream("pets.json");
 			if(petsStream == null) {
 				throw new FileNotFoundException("pets.json not found");
 			}
 			
+			//Wraps InputStream in a Reader so Gson can parse it
+			//Parses the entire JSON array into a real array of Pet objects
+			//Loops through each pet object loaded and adds the Pet's into the Shelter storage
 			Reader petsReader = new InputStreamReader(petsStream);
 			Pet[] pets = gson.fromJson(petsReader, Pet[].class);
 			for(Pet pet : pets) {
 				shelter.addPet(pet);
 			}
+			
+			
 		}
 	}
 	
