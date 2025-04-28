@@ -16,6 +16,9 @@ public class PetController {
 	private Shelter<Pet> shelter;
 	private MainFrame view;
 	
+	//PetController constructor used to create a PetController object.
+	//Shelter<pet> - object (data)
+	//MainFrame - object (window)
 	public PetController(Shelter<Pet> shelter, MainFrame view) {
 		this.shelter = shelter;
 		this.view = view;
