@@ -77,9 +77,9 @@ public class PetController {
 	
 	//addPet() will handle adding a new pet. Will open dialog, get input, create
 	//new pet, add it to shelter.
-	private void addPet(T pet) {
+	private void addPet() {
 		
-		pets.add(pet);
+		
 	}
 	
 	/*
