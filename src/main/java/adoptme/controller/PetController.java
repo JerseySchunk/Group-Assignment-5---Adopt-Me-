@@ -58,12 +58,16 @@ public class PetController {
 	            shelter.addPet(pet);
 	        }
 	        
-	        // Now load exotic animals
+	        // Tries to load 'exotic_animals.json' and if it doesn't exist, crashes the application
+	        //and shows an error saying the file could not be found
 	        InputStream exoticStream = getClass().getClassLoader().getResourceAsStream("exotic_animals.json");
 	        if (exoticStream == null) {
 	            throw new FileNotFoundException("exotic_animals.json not found");
 	        }
 	        
+	        //converts the 'exotic_animals.json' file into 'ExoticAnimal' objects.
+	        //Then wraps each of those into Pet-like objects using the adapter.
+	        //Then adds them to the pet list (shelter)
 	        Reader exoticReader = new InputStreamReader(exoticStream);
 	        ExoticAnimal[] exotics = gson.fromJson(exoticReader, ExoticAnimal[].class);
 	        for (ExoticAnimal exotic : exotics) {
@@ -71,9 +75,9 @@ public class PetController {
 	            shelter.addPet(adaptedExotic);
 	        }
 	        
+	        //Catches potential error and prints what happened. 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        // Optional: you can also pop up an error dialog if you want
 	    }
 	}
 
