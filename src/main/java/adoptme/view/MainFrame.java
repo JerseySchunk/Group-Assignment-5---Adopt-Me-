@@ -38,6 +38,8 @@ public class MainFrame extends JFrame {
 		panel.add(removeButton);
 		panel.add(viewButton);
 		
+		frame.add(panel);
+		
 	}
 		
 		public void addActionListeneradoptButton(ActionListener listener) {
