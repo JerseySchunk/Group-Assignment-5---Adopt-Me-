@@ -1,4 +1,4 @@
-package adoptme.model;
+package adoptme.thirdparty;
 
 /**
  * Simulated third-party ExoticAnimal class.

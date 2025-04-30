@@ -1,5 +1,7 @@
 package adoptme.model;
 
+import adoptme.thirdparty.ExoticAnimal;
+
 public class ExoticAnimalAdapter extends Pet {
     private ExoticAnimal exoticAnimal;
 

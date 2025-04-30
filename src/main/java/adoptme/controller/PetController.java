@@ -6,9 +6,9 @@ import java.io.Reader;
 import java.io.FileNotFoundException;
 import com.google.gson.Gson;
 import adoptme.model.Shelter;
+import adoptme.thirdparty.ExoticAnimal;
 import adoptme.model.Pet;
 import adoptme.view.MainFrame;
-import adoptme.model.ExoticAnimal;
 import adoptme.model.ExoticAnimalAdapter;
 
 
