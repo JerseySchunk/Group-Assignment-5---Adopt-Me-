@@ -10,6 +10,9 @@ import adoptme.thirdparty.ExoticAnimal;
 import adoptme.model.Pet;
 import adoptme.view.MainFrame;
 import adoptme.model.ExoticAnimalAdapter;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
@@ -29,8 +32,45 @@ public class PetController {
 		updatePetList();
 	}
 	
+	/*
+	 * setupListeners()
+	 * Will connect the GUI buttons to the controller logic.
+	 */
 	private void setupListeners() {
+		view.addActionListeneraddButton(e -> addPet());
+		view.addActionListenerremoveButton(e -> removePet());
+		view.addActionListeneradoptButton(e -> adoptPet());
+		view.addActionListenerviewButton(e -> viewPetDetails());
+	}
+	
+	
+	/*
+	 * viewPetDetails()
+	 * Will display the details of the currently selected pet in a pop up.
+	 * 
+	 * If not pet is selected, a warning message is shown which prompts the
+	 * user to select a pet. If a pet is selected, it will retrieve the pet's
+	 * information from the selected row in the table and present it.
+	 */
+	private void viewPetDetails() {
+		JTable table = view.getPetTable();
+		int selectedRow = table.getSelectedRow();
 		
+		if(selectedRow == -1) {
+			JOptionPane.showMessageDialog(view,  "Please select a pet to view details.", "No Pet Selected", JOptionPane.WARNING_MESSAGE);
+		}
+		
+		//Gets data from selected row
+		String name = table.getValueAt(selectedRow, 0).toString();
+		String age = table.getValueAt(selectedRow, 1).toString();
+		String species = table.getValueAt(selectedRow, 2).toString();
+		String adopted = table.getValueAt(selectedRow, 3).toString();
+		
+		//Builds detail message
+		String message = "Name: " + name + "\nAge: " + age + "\nSpecies: " + species + "\nAdopted: " + adopted;
+		
+		//Displays the information in a pop up
+		JOptionPane.showMessageDialog(view, message, "Pet Details", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	
