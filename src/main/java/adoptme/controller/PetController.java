@@ -10,6 +10,8 @@ import adoptme.thirdparty.ExoticAnimal;
 import adoptme.model.Pet;
 import adoptme.view.MainFrame;
 import adoptme.model.ExoticAnimalAdapter;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 
 public class PetController {
@@ -127,6 +129,22 @@ public class PetController {
 	 * after any change.
 	 */
 	private void updatePetList() {
+		
+		String[] columns = { "Name", "Age", "Species", "Adopted" };
+		DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
+		
+		List<Pet> pets = shelter.getAllPets();
+		for(int i = 0; i < pets.size(); i++) {
+			Pet pet = pets.get(i);
+			Object[] row = new Object[4];
+			row[0] = pet.getName();
+			row[1] = pet.getAge();
+			row[2] = pet.getSpecies();
+			row[3] = pet.isAdopted() ? "Yes" : "No";
+			tableModel.addRow(row);
+		}
+		
+		view.getPetTable().setModel(tableModel);
 		
 	}
 }
