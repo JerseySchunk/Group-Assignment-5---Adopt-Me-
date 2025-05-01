@@ -12,13 +12,16 @@ import javax.swing.JTable;
 
 public class MainFrame extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTable petTable;
 	private JButton adoptButton,removeButton,viewButton,addButton;
 	
 	public MainFrame() { 
 		//Frame settings
-		frame = new JFrame("Pet Test");
 		setTitle("Pet Adoption Website");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(300, 100, 500, 400);
@@ -44,7 +47,7 @@ public class MainFrame extends JFrame {
 		buttonpanel.add(viewButton);
 		
 		frame.add(panel);
-		frame.add(buttonpanel);
+		frame.add(buttonpanel, BorderLayout.SOUTH);
 		
 	}
 		
