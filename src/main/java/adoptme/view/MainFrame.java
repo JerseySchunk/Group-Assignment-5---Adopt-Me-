@@ -16,9 +16,8 @@ public class MainFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
 	private JTable petTable;
-	private JButton adoptButton,removeButton,viewButton,addButton;
+	private JButton adoptButton, removeButton, viewButton, addButton;
 	
 	public MainFrame() { 
 		//Frame settings
@@ -27,13 +26,11 @@ public class MainFrame extends JFrame {
 		setBounds(300, 100, 500, 400);
 		setLayout(new BorderLayout());
 
-		JPanel panel = new JPanel();
-		setContentPane(panel);
-		
-		//Table displaying pets
-        petTable = new JTable();
-        add(new JScrollPane(petTable), BorderLayout.CENTER);
-		//Buttons
+		//Jersey Added this
+		//Mainframe already extended JFrame, so I deleted unnecessary JFrame object
+		//This will create pet table
+		petTable = new JTable();
+		add(new JScrollPane(petTable), BorderLayout.CENTER);
 		
         JPanel buttonpanel = new JPanel();
 		addButton = new JButton("Add Pet");
@@ -46,8 +43,7 @@ public class MainFrame extends JFrame {
 		buttonpanel.add(removeButton);
 		buttonpanel.add(viewButton);
 		
-		frame.add(panel);
-		frame.add(buttonpanel, BorderLayout.SOUTH);
+		add(buttonpanel, BorderLayout.SOUTH);
 		
 	}
 		
