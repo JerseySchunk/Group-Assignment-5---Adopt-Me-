@@ -183,7 +183,11 @@ public class PetController {
 			row[0] = pet.getName();
 			row[1] = pet.getAge();
 			row[2] = pet.getSpecies();
-			row[3] = pet.isAdopted() ? "Yes" : "No";
+			if (pet.isAdopted()) {
+			    row[3] = "Yes";
+			} else {
+			    row[3] = "No";
+			}
 			tableModel.addRow(row);
 		}
 		
