@@ -9,12 +9,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JComboBox;
 
 public class MainFrame extends JFrame {
 	
 	/**
 	 * 
 	 */
+	
+	private JComboBox<String> sortComboBox = new JComboBox<>(new String[] { "Name", "Age", "Species" });
+	
 	private static final long serialVersionUID = 1L;
 	private JTable petTable;
 	private JButton adoptButton, removeButton, viewButton, addButton;
@@ -42,6 +46,7 @@ public class MainFrame extends JFrame {
 		buttonpanel.add(adoptButton);
 		buttonpanel.add(removeButton);
 		buttonpanel.add(viewButton);
+		buttonpanel.add(sortComboBox);
 		
 		add(buttonpanel, BorderLayout.SOUTH);
 		
@@ -61,8 +66,13 @@ public class MainFrame extends JFrame {
 		}
 		
 		//Jersey added this
+		//ALso added combo box logic
 		public JTable getPetTable() {
 		    return petTable;
+		}
+		
+		public JComboBox<String> getSortComboBox(){
+			return sortComboBox;
 		}
 
 		
