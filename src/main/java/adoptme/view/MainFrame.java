@@ -78,6 +78,8 @@ public class MainFrame extends JFrame {
 			return sortComboBox;
 		}
 
-		
+		public void addActionListenerSaveButton(ActionListener listener) {
+			saveButton.addActionListener(listener);
+		}
 			
 }
