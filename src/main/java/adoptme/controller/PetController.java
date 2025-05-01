@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import adoptme.utils.PetComparators;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -44,7 +43,10 @@ public class PetController {
 		view.addActionListenerremoveButton(e -> removePet());
 		view.addActionListeneradoptButton(e -> adoptPet());
 		view.addActionListenerviewButton(e -> viewPetDetails());
+		view.addActionListenerviewButton(e -> savePets());
 	}
+	
+	
 	
 	
 	/*
