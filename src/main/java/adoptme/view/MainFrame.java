@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JTable petTable;
-	private JButton adoptButton, removeButton, viewButton, addButton;
+	private JButton adoptButton, saveButton, removeButton, viewButton, addButton;
 	
 	public MainFrame() { 
 		//Frame settings
@@ -41,12 +41,15 @@ public class MainFrame extends JFrame {
 		adoptButton = new JButton("Adopt a Pet");
 		removeButton = new JButton("Remove a Pet");
 		viewButton = new JButton("View Pet");
+		saveButton = new JButton("Save Pets");
+		
 		
 		buttonpanel.add(addButton);
 		buttonpanel.add(adoptButton);
 		buttonpanel.add(removeButton);
 		buttonpanel.add(viewButton);
 		buttonpanel.add(sortComboBox);
+		buttonpanel.add(saveButton);
 		
 		add(buttonpanel, BorderLayout.SOUTH);
 		
