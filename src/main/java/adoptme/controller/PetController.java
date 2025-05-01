@@ -240,7 +240,7 @@ public class PetController {
 
 				case "Name":
 				default:
-					shelter.sortByName(); // uses natural order (by name)
+					shelter.sortByName();
 					break;
 			}
 
