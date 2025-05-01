@@ -15,7 +15,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import adoptme.utils.PetComparators;
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class PetController {
 	private Shelter<Pet> shelter;
@@ -249,7 +252,24 @@ public class PetController {
 	 * it with current date / time.
 	 */
 	private void savePets() {
+		//Retrieves list of pets from Shelter object
+		List<Pet> pets = shelter.getAllPets();
 		
+		//Creates Gson object to store converted List data
+		Gson gson = new Gson();
+		//Gets the current date and time and then appends the filename to include the date and time.
+		String time = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+		String filename = time + "_pets.json";
+		
+		//Attempts to convert pets list into JSON and write the data into GSon file. 
+		//Prints error if this fails. 
+		try(FileWriter writer = new FileWriter(filename)){
+			gson.toJson(pets, writer);
+			JOptionPane.showMessageDialog(view, "Pets saved to " + filename, "Save complete!", JOptionPane.INFORMATION_MESSAGE);
+		}catch(IOException e) {
+			JOptionPane.showMessageDialog(view, "Saving failure: " + e.getMessage(), "Error saving", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 	}
 	
 	/*
