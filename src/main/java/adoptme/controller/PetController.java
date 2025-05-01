@@ -43,7 +43,8 @@ public class PetController {
 		view.addActionListenerremoveButton(e -> removePet());
 		view.addActionListeneradoptButton(e -> adoptPet());
 		view.addActionListenerviewButton(e -> viewPetDetails());
-		view.addActionListenerviewButton(e -> savePets());
+		view.addActionListenerSaveButton(e -> savePets());
+		view.getSortComboBox().addActionListener(e -> sortPets());
 	}
 	
 	
@@ -226,27 +227,26 @@ public class PetController {
 		
 		//Gets the selection from the combo box. 
 		//Gets the list of pets in the shelter.
-		String selected = (String) view.getSortComboBox().getSelectedItem();
-		List<Pet> pets = shelter.getAllPets();
-		
-		//Depending on what the user selects, that type of sorting case is used.
-		switch (selected) {
-		case "Age":
-			pets.sort(new PetComparators.AgeComparator());
-			break;
-			
-		case "Species":
-			pets.sort(new PetComparators.SpeciesComparator());
-			break;
-			
-		case "Name" :
-		default:
-			pets.sort(new PetComparators.NameComparator());
-			break;
+			String selected = (String) view.getSortComboBox().getSelectedItem();
+
+			switch (selected) {
+				case "Age":
+					shelter.sortBy(new PetComparators.AgeComparator());
+					break;
+
+				case "Species":
+					shelter.sortBy(new PetComparators.SpeciesComparator());
+					break;
+
+				case "Name":
+				default:
+					shelter.sortByName(); // uses natural order (by name)
+					break;
+			}
+
+			updatePetList(); // refresh table
 		}
-		
-		updatePetList();
- 	}
+
 	
 	
 	/*
