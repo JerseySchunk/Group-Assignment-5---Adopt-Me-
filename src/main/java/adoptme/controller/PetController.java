@@ -155,11 +155,33 @@ public class PetController {
 	}
 	
 	/*
-	 * Marks the selected pet as adopted. Blocks if already adopted - which means
-	 * show an error.
+	 * This is the method for the adoption process for the selected pet in the MainFrame (GUI)
+	 * 
+	 * If not pet is selected, will provide a warning. If the pet selected
+	 * is adopted, it gives a warning and exits. Otherwise, updates the pet to adopted, shows a 
+	 * confirmation message, and updates the pet list in the GUI.
 	 */
 	private void adoptPet() {
+		JTable table = view.getPetTable();
+		int selectedRow = table.getSelectedRow();
 		
+		//If user hasn't selected any pet this will return 
+		if(selectedRow == -1) {
+			JOptionPane.showMessageDialog(view, "Select a pet to adopt.", "No pet selected.", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		Pet selectedPet = shelter.getAllPets().get(selectedRow);
+		
+		//checks if pet is already adopted, if so exits
+		if(selectedPet.isAdopted()) {
+			JOptionPane.showMessageDialog(view,  "This pet has already been adopted.", "Already adopted.", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		//Marks selected pet as adopted, shows a confirmation message, and updates the PetList
+		selectedPet.setAdopted(true);
+		JOptionPane.showMessageDialog(view, "You have adopted "  + selectedPet.getName() + ".", "Pet was adopted!", JOptionPane.INFORMATION_MESSAGE);
+		updatePetList();
 	}
 	
 	/*
