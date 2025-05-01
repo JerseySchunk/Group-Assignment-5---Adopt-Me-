@@ -127,7 +127,35 @@ public class PetController {
 	//addPet() will handle adding a new pet. Will open dialog, get input, create
 	//new pet, add it to shelter.
 	private void addPet() {
-		
+		//Gets name from input. If not valid, returns
+		String name = JOptionPane.showInputDialog(view, "Enter the new pet's name: ");
+		if(name == null || name.isBlank()) {
+			JOptionPane.showMessageDialog(view, "Name cannot be blank.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		//Gets species from input. If not valid, returns
+		String species = JOptionPane.showInputDialog(view, "Enter the pet's species:");
+		if(species == null || species.isBlank()) {
+			JOptionPane.showMessageDialog(view, "Species cannot be blank.", "Invalid input", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		//Gets age from input. If not valid, returns
+		String ageInput = JOptionPane.showInputDialog(view, "Enter the pet's age (integer values):");
+		int age;
+		try {
+			age = Integer.parseInt(ageInput);
+			if(age < 0) {
+				throw new NumberFormatException();
+			}
+			}catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(view,  "Invalid age. Please enter age 0 or above", "Invalid input", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		//Creates pet with the input information.
+		Pet newPet = new Pet(name, species, age) {};
+		//Adds the pet to the shelter and refreshes the GUI.
+		shelter.addPet(newPet);
+		updatePetList();
 		
 	}
 	
