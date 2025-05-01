@@ -125,8 +125,11 @@ public class PetController {
 	}
 	
 	/*
-	 * updatePetList() - Will refresh the displayed list / table of pets in the GUI
-	 * after any change.
+	 * updatePetList() 
+	 * Will update the pet table in the GUI to show the state of the shelter.
+	 * Will retrieve all pets from the shelter, build a table model with columns
+	 * for the Name, Age, Species, and if Adopted. And will set the model to the
+	 * JTable in MainFrame. 
 	 */
 	private void updatePetList() {
 		
