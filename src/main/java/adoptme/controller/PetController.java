@@ -10,7 +10,6 @@ import adoptme.thirdparty.ExoticAnimal;
 import adoptme.model.Pet;
 import adoptme.view.MainFrame;
 import adoptme.model.ExoticAnimalAdapter;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -136,7 +135,23 @@ public class PetController {
 	 * button is clicked.
 	 */
 	private void removePet() {
+		JTable table = view.getPetTable();
+		int selectedRow = table.getSelectedRow();
 		
+		if(selectedRow == -1) {
+			JOptionPane.showMessageDialog(view, "Select a pet to remove.", "No pet selected.", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		int confirm = JOptionPane.showConfirmDialog(view,  "Are you sure you want to remove the pet?", "Confirm Removal", JOptionPane.YES_NO_OPTION);
+		//Checks if user clicked yes. If no, it exits the method and cancels the removal
+		if(confirm != JOptionPane.YES_OPTION) {
+			return;
+		}
+		//Gets pet to remove and removes it
+		Pet petToRemove = shelter.getAllPets().get(selectedRow);
+		shelter.removePet(petToRemove);
+		updatePetList();
 	}
 	
 	/*
