@@ -1,6 +1,8 @@
 package adoptme.controller;
 
 import java.io.InputStream;
+import adoptme.utils.PetDeserializer;
+import com.google.gson.GsonBuilder;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.FileNotFoundException;
@@ -86,7 +88,10 @@ public class PetController {
 	 * the program.
 	 */
 	private void loadPets() {
-	    Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+			    .registerTypeAdapter(Pet.class, new PetDeserializer())
+			    .create();
+
 	    
 	    //Find and open pets.json file inside src/main/resources
 	    //Reads the info into InputStream
