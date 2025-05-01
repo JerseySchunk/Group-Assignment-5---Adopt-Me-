@@ -32,17 +32,19 @@ public class MainFrame extends JFrame {
         add(new JScrollPane(petTable), BorderLayout.CENTER);
 		//Buttons
 		
+        JPanel buttonpanel = new JPanel();
 		addButton = new JButton("Add Pet");
 		adoptButton = new JButton("Adopt a Pet");
 		removeButton = new JButton("Remove a Pet");
 		viewButton = new JButton("View Pet");
 		
-		panel.add(addButton);
-		panel.add(adoptButton);
-		panel.add(removeButton);
-		panel.add(viewButton);
+		buttonpanel.add(addButton);
+		buttonpanel.add(adoptButton);
+		buttonpanel.add(removeButton);
+		buttonpanel.add(viewButton);
 		
 		frame.add(panel);
+		frame.add(buttonpanel);
 		
 	}
 		
