@@ -60,5 +60,11 @@ public class MainFrame extends JFrame {
 			viewButton.addActionListener(listener);
 		}
 		
+		//Jersey added this
+		public JTable getPetTable() {
+		    return petTable;
+		}
+
+		
 			
 }
