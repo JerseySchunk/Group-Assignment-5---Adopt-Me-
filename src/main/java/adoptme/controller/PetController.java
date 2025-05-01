@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import adoptme.utils.PetComparators;
 
 
 public class PetController {
@@ -190,7 +191,29 @@ public class PetController {
 	 */
 	private void sortPets() {
 		
-	}
+		//Gets the selection from the combo box. 
+		//Gets the list of pets in the shelter.
+		String selected = (String) view.getSortComboBox().getSelectedItem();
+		List<Pet> pets = shelter.getAllPets();
+		
+		//Depending on what the user selects, that type of sorting case is used.
+		switch (selected) {
+		case "Age":
+			pets.sort(new PetComparators.AgeComparator());
+			break;
+			
+		case "Species":
+			pets.sort(new PetComparators.SpeciesComparator());
+			break;
+			
+		case "Name" :
+		default:
+			pets.sort(new PetComparators.NameComparator());
+			break;
+		}
+		
+		updatePetList();
+ 	}
 	
 	
 	/*
