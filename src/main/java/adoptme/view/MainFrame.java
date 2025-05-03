@@ -1,6 +1,7 @@
 package adoptme.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
@@ -27,7 +28,7 @@ public class MainFrame extends JFrame {
 		//Frame settings
 		setTitle("Pet Adoption Website");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(300, 100, 500, 400);
+		setBounds(300, 100, 800, 400);
 		setLayout(new BorderLayout());
 
 		//Jersey Added this
@@ -50,6 +51,13 @@ public class MainFrame extends JFrame {
 		buttonpanel.add(viewButton);
 		buttonpanel.add(sortComboBox);
 		buttonpanel.add(saveButton);
+		
+		
+		//Button Colors
+		addButton.setBackground(Color.MAGENTA);
+		removeButton.setBackground(Color.RED);
+		viewButton.setBackground(Color.BLUE);
+		adoptButton.setBackground(Color.CYAN);
 		
 		add(buttonpanel, BorderLayout.SOUTH);
 		
