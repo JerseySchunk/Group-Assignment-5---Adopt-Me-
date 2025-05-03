@@ -11,6 +11,7 @@ import adoptme.model.Shelter;
 import adoptme.thirdparty.ExoticAnimal;
 import adoptme.model.Pet;
 import adoptme.view.MainFrame;
+import adoptme.model.Cat;
 import adoptme.model.ExoticAnimalAdapter;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -20,6 +21,10 @@ import adoptme.utils.PetComparators;
 import java.util.Date;
 import java.io.FileWriter;
 import java.io.IOException;
+import adoptme.model.Dog;
+
+import adoptme.model.Rabbit;
+
 
 public class PetController {
 	private Shelter<Pet> shelter;
@@ -144,12 +149,6 @@ public class PetController {
 			JOptionPane.showMessageDialog(view, "Name cannot be blank.", "Invalid input", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		//Gets species from input. If not valid, returns
-		String species = JOptionPane.showInputDialog(view, "Enter the pet's species:");
-		if(species == null || species.isBlank()) {
-			JOptionPane.showMessageDialog(view, "Species cannot be blank.", "Invalid input", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
 		//Gets age from input. If not valid, returns
 		String ageInput = JOptionPane.showInputDialog(view, "Enter the pet's age (integer values):");
 		int age;
@@ -163,7 +162,28 @@ public class PetController {
 				return;
 			}
 		//Creates pet with the input information.
-		Pet newPet = new Pet(name, species, age) {};
+		// Ask user for type of pet
+		String[] options = { "Dog", "Cat", "Rabbit" };
+		String type = (String) JOptionPane.showInputDialog(view, "Select pet type:", "Pet Type",
+		    JOptionPane.PLAIN_MESSAGE, null, options, "Dog");
+
+		if (type == null) {
+		    JOptionPane.showMessageDialog(view, "Pet type selection cancelled.", "Cancelled", JOptionPane.WARNING_MESSAGE);
+		    return;
+		}
+
+		Pet newPet;
+		
+		//Creates the new Pet object based on the type the user selects. 
+		if ("Cat".equals(type)) {
+		    newPet = new Cat(name, age);
+		} else if ("Rabbit".equals(type)) {
+		    newPet = new Rabbit(name, age);
+		} else {
+		    newPet = new Dog(name, age);
+		}
+
+
 		//Adds the pet to the shelter and refreshes the GUI.
 		shelter.addPet(newPet);
 		updatePetList();
