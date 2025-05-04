@@ -25,14 +25,22 @@ import adoptme.model.Dog;
 
 import adoptme.model.Rabbit;
 
+/**
+ * The PetContoller class will act as the controller in the MVC pattern for the application.
+ * It connects the GUI (MainFrame) to the data model (Shelter) and will manage the events and logic.
+ */
 
 public class PetController {
 	private Shelter<Pet> shelter;
 	private MainFrame view;
 	
-	//PetController constructor used to create a PetController object.
-	//Shelter<pet> - object (data)
-	//MainFrame - object (window)
+	/**
+	 * This will construct a PetContoller to manage the shelter and view components.
+	 * Sets up action listeners, loads pet data from files, and updates the view.
+	 * 
+	 * @param shelter  the shelter containing pets to be adopted. 
+	 * @param view     the graphical user interface of the application
+	 */
 	public PetController(Shelter<Pet> shelter, MainFrame view) {
 		this.shelter = shelter;
 		this.view = view;
@@ -41,9 +49,10 @@ public class PetController {
 		updatePetList();
 	}
 	
-	/*
-	 * setupListeners()
-	 * Will connect the GUI buttons to the controller logic.
+	/**
+	 * This will connect the GUI buttons and components to their corresponding controller actions.
+	 * This will setup action listeners for add, remove, adopt, view, save, and sort functions.
+	 * Ensures the view can trigger the appropriate logic when users interact with the UI.
 	 */
 	private void setupListeners() {
 		view.addActionListeneraddButton(e -> addPet());
@@ -57,13 +66,12 @@ public class PetController {
 	
 	
 	
-	/*
-	 * viewPetDetails()
-	 * Will display the details of the currently selected pet in a pop up.
+	/**
+	 * This will display the details of the currently selected pet in a pop up dialog.
 	 * 
-	 * If not pet is selected, a warning message is shown which prompts the
-	 * user to select a pet. If a pet is selected, it will retrieve the pet's
-	 * information from the selected row in the table and present it.
+	 * If no pet is selected, a warning will prompt the user to select one.
+	 * Otherwise, the method will retrieve the pet's information from the selected row
+	 * in the table and present it in a formatted message.
 	 */
 	private void viewPetDetails() {
 		JTable table = view.getPetTable();
@@ -87,10 +95,11 @@ public class PetController {
 	}
 	
 	
-	/*
-	 * loadPets() will load pets from pets.json and exotic_animals.json
-	 * into the Shelter using Gson. This will happen at the start of 
-	 * the program.
+	/**
+	 * Will load pets from the JSON files located in the src/main/resources directory. Uses Gson to
+	 * parse the files which includes a deserializer for Pet objects.
+	 * Exotic animals are adapted into Pet objects using the ExoticAnimalAdapter
+	 * and added to the Shelter. This method is called once a the program startup. 
 	 */
 	private void loadPets() {
 		Gson gson = new GsonBuilder()
