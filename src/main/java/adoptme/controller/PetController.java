@@ -1,6 +1,8 @@
 package adoptme.controller;
 
 import java.io.InputStream;
+import adoptme.view.AddPetDialog;
+import adoptme.view.PetDetailsDialog;
 import adoptme.utils.PetDeserializer;
 import com.google.gson.GsonBuilder;
 import java.io.InputStreamReader;
@@ -74,25 +76,23 @@ public class PetController {
 	 * in the table and present it in a formatted message.
 	 */
 	private void viewPetDetails() {
-		JTable table = view.getPetTable();
-		int selectedRow = table.getSelectedRow();
-		
-		if(selectedRow == -1) {
-			JOptionPane.showMessageDialog(view,  "Please select a pet to view details.", "No Pet Selected", JOptionPane.WARNING_MESSAGE);
-		}
-		
-		//Gets data from selected row
-		String name = table.getValueAt(selectedRow, 0).toString();
-		String age = table.getValueAt(selectedRow, 1).toString();
-		String species = table.getValueAt(selectedRow, 2).toString();
-		String adopted = table.getValueAt(selectedRow, 3).toString();
-		
-		//Builds detail message
-		String message = "Name: " + name + "\nAge: " + age + "\nSpecies: " + species + "\nAdopted: " + adopted;
-		
-		//Displays the information in a pop up
-		JOptionPane.showMessageDialog(view, message, "Pet Details", JOptionPane.INFORMATION_MESSAGE);
+	    JTable table = view.getPetTable();
+	    int row = table.getSelectedRow();
+	    if (row == -1) {
+	        JOptionPane.showMessageDialog(view, "Please select a pet.", "No Pet Selected", JOptionPane.WARNING_MESSAGE);
+	        return;
+	    }
+
+	    String name = table.getValueAt(row, 0).toString();
+	    String age = table.getValueAt(row, 1).toString();
+	    String species = table.getValueAt(row, 2).toString();
+	    String adopted = table.getValueAt(row, 3).toString();
+
+	    PetDetailsDialog dialog = new PetDetailsDialog(view, name, age, species, adopted);
+	    
+	    dialog.setVisible(true);
 	}
+
 	
 	
 	/**
@@ -149,55 +149,52 @@ public class PetController {
 	}
 
 	
-	//addPet() will handle adding a new pet. Will open dialog, get input, create
-	//new pet, add it to shelter.
+	/**
+	 * Handles the process of adding a new pet.
+	 * Will open the AddPetDialog to collect user input, and validate the input,
+	 * and add the pet to the shelter if confirmed.
+	 * Finally will refresh the pet list in the view. 
+	 */
 	private void addPet() {
-		//Gets name from input. If not valid, returns
-		String name = JOptionPane.showInputDialog(view, "Enter the new pet's name: ");
-		if(name == null || name.isBlank()) {
-			JOptionPane.showMessageDialog(view, "Name cannot be blank.", "Invalid input", JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		//Gets age from input. If not valid, returns
-		String ageInput = JOptionPane.showInputDialog(view, "Enter the pet's age (integer values):");
-		int age;
-		try {
-			age = Integer.parseInt(ageInput);
-			if(age < 0) {
-				throw new NumberFormatException();
-			}
-			}catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(view,  "Invalid age. Please enter age 0 or above", "Invalid input", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-		//Creates pet with the input information.
-		// Ask user for type of pet
-		String[] options = { "Dog", "Cat", "Rabbit" };
-		String type = (String) JOptionPane.showInputDialog(view, "Select pet type:", "Pet Type",
-		    JOptionPane.PLAIN_MESSAGE, null, options, "Dog");
+	    AddPetDialog dialog = new AddPetDialog(view);
+	    dialog.setVisible(true);
 
-		if (type == null) {
-		    JOptionPane.showMessageDialog(view, "Pet type selection cancelled.", "Cancelled", JOptionPane.WARNING_MESSAGE);
-		    return;
-		}
-
-		Pet newPet;
-		
-		//Creates the new Pet object based on the type the user selects. 
-		if ("Cat".equals(type)) {
-		    newPet = new Cat(name, age);
-		} else if ("Rabbit".equals(type)) {
-		    newPet = new Rabbit(name, age);
-		} else {
-		    newPet = new Dog(name, age);
-		}
+	    if (dialog.isConfirmed()) {
+	    } else {
+	        return;
+	    }
 
 
-		//Adds the pet to the shelter and refreshes the GUI.
-		shelter.addPet(newPet);
-		updatePetList();
-		
+	    String name = dialog.getPetName();
+	    int age;
+
+	    try {
+	        age = dialog.getPetAge();
+	        if (age < 0) throw new NumberFormatException();
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(view, "Invalid age.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    String type = dialog.getPetType();
+	    Pet newPet;
+
+	    if (type.equals("Cat")) {
+	        newPet = new Cat(name, age);
+	        
+	    } else if (type.equals("Rabbit")) {
+	        newPet = new Rabbit(name, age);
+	        
+	    } else {
+	        newPet = new Dog(name, age);
+	        
+	    }
+
+
+	    shelter.addPet(newPet);
+	    updatePetList();
 	}
+
 	
 	/*
 	 * removePet() will Remove the selected pet from the shelter when the remove
