@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,11 +11,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 
+/**
+ * GUI view based on the MVC framework
+ * MainFrame extends JFrame class which is party of Swing Library
+ * MainFrame has Buttons, Combo boxes and the basic settings for the windows
+ * 
+ */
 public class MainFrame extends JFrame {
 	
-	/**
-	 * 
-	 */
 	
 	private JComboBox<String> sortComboBox = new JComboBox<>(new String[] { "Name", "Age", "Species" });
 	
